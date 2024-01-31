@@ -57,7 +57,7 @@ sudo rm /etc/nginx/sites-enabled/default
 sudo ln -s /etc/nginx/sites-available/xahau /etc/nginx/sites-enabled/
 ```
 
-STOP!  You must now edit /etc/nginx/sites-available/xahau, remove the dummy values you find there and replace them with your own. You can have as many or as few ALLOW as you want, as long as it's above the DENY ALL.  Look at the whole file, it should be obvious what you need to update.  Find any customdomin.com and update accordingly.
+STOP!  You must now edit /etc/nginx/sites-available/xahau, remove the dummy values you find there and replace them with your own. You can have as many or as few ALLOW as you want, as long as it's above the DENY ALL.  Look at the whole file, it should be obvious what you need to update.  Find any mydomin.com and update accordingly.
 
 ```
 sudo nginx -t # ALWAYS use this to test your changes to nginx config.  If it detects syntax errors, go fix before reloading the service
