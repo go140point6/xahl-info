@@ -1,22 +1,22 @@
 # Example of nginx reverse proxy getting rpc and wss working.
-# xah-mainnet01.customdomain.com = A (host) Record in DNS pointing to IP address.
-# rpc-xah-mainnet.customdomain.com & wss-xah-mainnet.customdomain.com = Two CNAME records pointing to the A record.
+# xahl.EXAMPLE.com = A (host) Record in DNS pointing to IP address.
+# rpc.EXAMPLE.com & wss.EXAMPLE.com = Two CNAME records pointing to the A record.
 
 # When you configure Let's Encrypt, be sure to request all three FQDN in the same cert request.
 
 server {
     listen 80;
-    server_name xah-mainnet01.customdomain.com rpc-xah-mainnet.customdomain.com wss-xah-mainnet.customdomain.com;
+    server_name xahl.EXAMPLE.com rpc.EXAMPLE.com wss.EXAMPLE.com;
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl http2;
-    server_name rpc-xah-mainnet.customdomain.com;
+    server_name rpc.EXAMPLE.com;
 
     # SSL certificate paths
-    ssl_certificate /etc/letsencrypt/live/xah-mainnet01.customdomain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/xah-mainnet01.customdomain.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/xahl.EXAMPLE.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/xahl.EXAMPLE.com/privkey.pem;
 
     # Other SSL settings
     ssl_protocols TLSv1.3 TLSv1.2;
@@ -60,11 +60,11 @@ server {
 
 server {
     listen 443 ssl http2;
-    server_name wss-xah-mainnet.customdomain.com;
+    server_name wss.EXAMPLE.com;
 
     # SSL certificate paths
-    ssl_certificate /etc/letsencrypt/live/xah-mainnet01.customdomain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/xah-mainnet01.customdomian.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/xahl.EXAMPLE.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/xahl.EXAMPLE.com/privkey.pem;
 
     # Other SSL settings
     ssl_protocols TLSv1.3 TLSv1.2;

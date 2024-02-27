@@ -4,10 +4,11 @@ One way to set up a xahaud node with working secure websockets.  Assumptions:
 - Dedicated VPS or hardware. This approach does not use docker.
 - Not sharing with Evernode or other workloads.
 - Ubuntu 22.04 (although it should work with 20.04 as well, but I only have experience running xahaud on 22.04).
-- You have a domain and have the ability to create Host (A) records and CNAME records in DNS. I am using examples of mydomain.com, don't YOU use that, use your own.
+- You have a domain and have the ability to create Host (A) records and CNAME records in DNS. I am using examples of EXAMPLE.com, don't YOU use that, use your own.
 - You have a regular user with sudo ability. Never recommended to run things as root.
 - I've only tested with for wss, although rpc should work with this setup as well.
 
+NOTE! If you don't know what a Host (A) or CNAME record is, or how to create one or both in DNS, see this link: https://gprivate.com/69poh
 
 ## Install xahaud
 ```
@@ -33,10 +34,10 @@ sudo ufw allow 'Nginx Full'
 
 ## Get certs to use with the reverse proxy
 
-In DNS, create a host (A) record pointing to your IP address. Create 2 CNAME records pointing to your host record. For example, if you domain is mydomain.com and IP is 111.111.111.111:
-- Host record: xah-mainnet01 pointing to 111.111.111.111
-- CNAME record: rpc-xah-mainnet pointing to xah-mainnet01.mydomain.com
-- CNAME record: wss-xah-mainnet pointing to xah-mainnet01.mydomain.com
+In DNS, create a host (A) record pointing to your IP address. Create 2 CNAME records pointing to your host record. For example, if you domain is EXAMPLE.com and IP is 111.111.111.111:
+- Host record: xahl pointing to 111.111.111.111
+- CNAME record: rpc pointing to xahl.EXAMPLE.com
+- CNAME record: wss pointing to xahl.EXAMPLE.com
 
 Note: ensure DNS propagation before moving on.
 
@@ -47,7 +48,7 @@ sudo certbot --nginx
 ```
 
 Note: when prompted, provide your real email address to get certificate alerts, and provide all three DNS names above like this:
-`xah-mainnet01.mydomain.com rpc-xah-mainnet.mydomain.com wss-xah-mainnet.mydomain.com`
+`xahl.EXAMPLE.com rpc.EXAMPLE.com wss.EXAMPLE.com`
 
 ## Configure xahaud specific reverse proxy config
 ```
@@ -79,9 +80,9 @@ xahaud server_info
 Note: look for `"server_state" : "full",` and your xahaud should be working as expected.  May be "connected", if just installed. Give it time.
 
 ```
-ping xah-mainnet01.mydomain.com
-ping rpc-xah-mainnet.mydomain.com
-ping wss-xah-mainnet.mydomain.com
+ping xahl.EXAMPLE.com
+ping rpc.EXAMPLE.com
+ping wss.EXAMPLE.com
 ```
 
 Note: all three should resolve to the same IP address.
@@ -89,7 +90,7 @@ Note: all three should resolve to the same IP address.
 ```
 sudo apt-get update
 sudo apt-get install node-ws
-wscat -c wss://wss-xah-mainnet.mydomain.com
+wscat -c wss://wss.EXAMPLE.com
 ```
 
 Note: On a clean system this should work, if you have another version of node installed (like if attempting this on an Evernode system) it probably won't install. If you get back `Connected (press CTRL+C to quit)` then you have a working secure websocket. Did you get `error: Unexpected server response: 403`? Go back and edit your nginx config file (xahau) and ensure whatever IP address you are testing is include, reload nginx.
@@ -98,7 +99,7 @@ Note: On a clean system this should work, if you have another version of node in
 - There seems to be two ways of doing this, the official way:
 ```
 sudo su -
-evernode config rippled wss://wss-xah-mainnet.mydomain.com
+evernode config rippled wss://wss.EXAMPLE.com
 ```
 
 Note: This will burn and reissue leases and then will hang. You must wait for it to complete, you will see 4x the number of instances you have, then when sure it's done, ctrl-c out of it.  So if you have 9 instances, you will no it's done when you count 36 lines of output from the process.
