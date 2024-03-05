@@ -111,12 +111,12 @@ sudo su -
 evernode config xahaud wss://wss.EXAMPLE.com
 ```
 
-Note: This will burn and reissue leases and then will hang. You must wait for it to complete, you will see 4x the number of instances you have, then when sure it's done, ctrl-c out of it.  So if you have 9 instances, you will no it's done when you count 36 lines of output from the process.
+Note: May be deprecated information with 0.8.2 --> This will burn and reissue leases and then will hang. You must wait for it to complete, you will see 4x the number of instances you have, then when sure it's done, ctrl-c out of it.  So if you have 9 instances, you will no it's done when you count 36 lines of output from the process.
 
 - the unofficial way:  edit /etc/sashimono/mb-xrpl/mb-xrpl.cfg and replace `"rippledServer": "wss://xahau.network",` with your newly created secure websocket.
 - reboot the node (I didn't try this method, I'm only reporting what others have done).
 
-Once either method is complete, if you do `sudo evernode config rippled` it should output your secure websocket and `sudo evernode status` should come back as active.
+Once either method is complete, if you do `sudo evernode config xahaud` it should output your secure websocket and `sudo evernode status` should come back as active.
 
 ## YAY!  You're done... but nope, this isn't set-it-and-forget-it
 
