@@ -87,19 +87,28 @@ ping wss.EXAMPLE.com
 
 Note: all three should resolve to the same IP address.
 
+Install wscat one of two ways:
 ```
 sudo apt-get update
 sudo apt-get install node-ws
+
+OR
+
+npm install -g wscat
+```
+
+Then test your websocket:
+```
 wscat -c wss://wss.EXAMPLE.com
 ```
 
-Note: On a clean system this should work, if you have another version of node installed (like if attempting this on an Evernode system) it probably won't install. If you get back `Connected (press CTRL+C to quit)` then you have a working secure websocket. Did you get `error: Unexpected server response: 403`? Go back and edit your nginx config file (xahau) and ensure whatever IP address you are testing is include, reload nginx.
+If you get back `Connected (press CTRL+C to quit)` then you have a working secure websocket. Did you get `error: Unexpected server response: 403`? Go back and edit your nginx config file (xahau) and ensure whatever IP address you are testing is include, reload nginx.
 
 ## Update your evernode websocket
-- There seems to be two ways of doing this, the official way:
+- There seems to be two ways of doing this, the official way (starting with 0.8.2 rippled was changed to xahaud):
 ```
 sudo su -
-evernode config rippled wss://wss.EXAMPLE.com
+evernode config xahaud wss://wss.EXAMPLE.com
 ```
 
 Note: This will burn and reissue leases and then will hang. You must wait for it to complete, you will see 4x the number of instances you have, then when sure it's done, ctrl-c out of it.  So if you have 9 instances, you will no it's done when you count 36 lines of output from the process.
