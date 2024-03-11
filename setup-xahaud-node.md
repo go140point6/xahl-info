@@ -5,6 +5,7 @@ One way to set up a xahaud node with working secure websockets.  Assumptions:
 - Not sharing with Evernode or other workloads.
 - Ubuntu 22.04 (although it should work with 20.04 as well, but I only have experience running xahaud on 22.04).
 - You have a domain and have the ability to create Host (A) records and CNAME records in DNS. I am using examples of EXAMPLE.com, don't YOU use that, use your own.
+- As long as you have the ability to create DNS records with your domain, you can create any number of host records using subdomains, there is no need to buy multiple domains. For example, domain "EXAMPLE.com" can have records for every evernode you have (evr-node01.EXAMPLE.com, evr-node02.EXAMPLE.com, etc) in addition to anything else (xahl.EXAMPLE.com, some-other-project-on-xdc-network.EXAMPLE.com, etc.).
 - You have a regular user with sudo ability. Never recommended to run things as root.
 - I've only tested with for wss, although rpc should work with this setup as well.
 
